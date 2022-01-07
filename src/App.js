@@ -8,8 +8,12 @@ import AddContact from './components/AddContact/AddContact';
 
 function App() {
 	const [contacts, setContacts] = useState({ name: '', email: '' });
-	const submitHandler = (e) => {
-		e.preventDefault();
+
+	const addContactHandler = (contact) => {
+		setContacts([
+			...contacts,
+			{ id: Math.ceil(Math.random() * 100), ...contact },
+		]);
 	};
 
 	return (
@@ -22,7 +26,7 @@ function App() {
 				</Switch>
 			</Layout> */}
 			<Header />
-			<AddContact onSubmit={submitHandler} />
+			<AddContact addContactHandler={addContactHandler} />
 		</main>
 	);
 }

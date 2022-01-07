@@ -1,14 +1,22 @@
 import { useState } from 'react';
 
-const AddContact = ({ onSubmit }) => {
+const AddContact = ({ addContactHandler }) => {
 	const [contact, setContact] = useState({ name: '', email: '' });
 
 	const changeHandler = (e) => {
 		setContact({ ...contact, [e.target.name]: e.target.value });
 	};
 
+	const submitForm = (e) => {
+		e.preventDefault();
+		addContactHandler(contact);
+		setContact({ name: '', email: '' });
+	};
+
 	return (
-		<form className='flex flex-col justify-center items-center'>
+		<form
+			onSubmit={submitForm}
+			className='flex flex-col justify-center items-center'>
 			<section className='flex justify-center items-center'>
 				<label>name</label>
 				<input
@@ -23,7 +31,7 @@ const AddContact = ({ onSubmit }) => {
 			<section className='flex justify-center items-center'>
 				<label>email</label>
 				<input
-					type='text'
+					type='email'
 					name='email'
 					value={contact.email}
 					onChange={changeHandler}
@@ -33,7 +41,6 @@ const AddContact = ({ onSubmit }) => {
 
 			<button
 				type='submit'
-				onClick={(e) => onSubmit(e)}
 				className='bg-violet-500 text-white px-3 py-1 rounded-md'>
 				Add Contact
 			</button>
